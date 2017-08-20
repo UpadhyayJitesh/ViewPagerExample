@@ -20,7 +20,7 @@ import java.util.List;
  * Created by jitesh.upadhyay on 8/7/2017.
  */
 
-public class MyAnotherFragment extends Fragment implements YourFragmentInterface{
+public class MyAnotherFragment extends Fragment implements YourFragmentInterface {
     public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
     RecyclerView recyclerView;
 
@@ -57,16 +57,18 @@ public class MyAnotherFragment extends Fragment implements YourFragmentInterface
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(DataEvent event) {
-        if (event.action.equals(DataEvent.DATA_OBTAINED)) {
+        if (event.action.equals(DataEvent.DATA_OBTAINED2)) {
+            Toast.makeText(getActivity(), "Updating Tab2", Toast.LENGTH_SHORT).show();
             List<JsonDummyRepresentation> albumList = event.responseObject;
             recyclerView.setAdapter(new AlbumsAdapter(this.getActivity(), albumList));
-        } else {
+        } else if (event.action.equals(DataEvent.DATA_ERROR2)) {
             Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
-    public void fragmentBecameVisible() {
-        new ApiRequester().doRequest(2);
+    public void fragmentBecameVisible(String query) {
+        //not using Query currently but you can use query string
+        new ApiRequester().doRequest(DataEvent.DATA_OBTAINED2,DataEvent.DATA_ERROR2,2);
     }
 }

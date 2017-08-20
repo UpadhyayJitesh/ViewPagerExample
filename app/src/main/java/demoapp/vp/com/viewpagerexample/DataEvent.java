@@ -7,9 +7,11 @@ import java.util.List;
  */
 
 public class DataEvent {
-    public static final String DATA_OBTAINED = "response";
+    public static final String DATA_OBTAINED1 = "response1";
+    public static final String DATA_OBTAINED2 = "response2";
     public static final String DATA_RESPONSE = "responseObject";
-    public static final String DATA_ERROR = "error";
+    public static final String DATA_ERROR1 = "error1";
+    public static final String DATA_ERROR2 = "error2";
     public List<JsonDummyRepresentation> responseObject;
     public String action;
 

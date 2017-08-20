@@ -5,5 +5,5 @@ package demoapp.vp.com.viewpagerexample;
  */
 
 public interface YourFragmentInterface {
-    public void fragmentBecameVisible();
+    public void fragmentBecameVisible(String query);
 }

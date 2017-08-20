@@ -13,7 +13,7 @@ import retrofit2.Response;
  */
 
 public class ApiRequester {
-    public void doRequest(int albumId) {
+    public void doRequest(final String obtainer,final String error,int albumId) {
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
@@ -22,12 +22,12 @@ public class ApiRequester {
             @Override
             public void onResponse(Call<List<JsonDummyRepresentation>> call, Response<List<JsonDummyRepresentation>> response) {
                 List<JsonDummyRepresentation> responseObject = (List<JsonDummyRepresentation>) response.body();
-                EventBus.getDefault().post(new DataEvent(DataEvent.DATA_OBTAINED, responseObject));
+                EventBus.getDefault().post(new DataEvent(obtainer, responseObject));
             }
 
             @Override
             public void onFailure(Call<List<JsonDummyRepresentation>> call, Throwable t) {
-                EventBus.getDefault().post(new DataEvent(DataEvent.DATA_ERROR));
+                EventBus.getDefault().post(new DataEvent(error));
             }
         });
     }

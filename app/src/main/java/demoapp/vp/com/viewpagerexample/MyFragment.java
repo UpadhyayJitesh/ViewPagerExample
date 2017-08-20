@@ -41,8 +41,6 @@ public class MyFragment extends Fragment implements YourFragmentInterface {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-        fragmentBecameVisible();
-
     }
 
     @Override
@@ -53,16 +51,18 @@ public class MyFragment extends Fragment implements YourFragmentInterface {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(DataEvent event) {
-        if (event.action.equals(DataEvent.DATA_OBTAINED)) {
+        if (event.action.equals(DataEvent.DATA_OBTAINED1)) {
+            Toast.makeText(getActivity(), "Updating Tab1", Toast.LENGTH_SHORT).show();
             List<JsonDummyRepresentation> albumList = event.responseObject;
             recyclerView.setAdapter(new AlbumsAdapter(this.getActivity(), albumList));
-        } else {
+        } else  if (event.action.equals(DataEvent.DATA_ERROR1)) {
             Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
-    public void fragmentBecameVisible() {
-        new ApiRequester().doRequest(1);
+    public void fragmentBecameVisible(String query) {
+        //not using Query currently but you can use query string
+        new ApiRequester().doRequest(DataEvent.DATA_OBTAINED1,DataEvent.DATA_ERROR1,1);
     }
 }
